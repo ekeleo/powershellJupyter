@@ -1,0 +1,14 @@
+﻿{
+  "PowerShell": {
+    "JsonOutput": false
+  },
+
+  "Logger": {
+    "ConsoleOutput": true,
+    "DebuggerOutput": false
+  },
+
+  "Debug": {
+    "BreakOnStart": false
+  }
+}

@@ -1,0 +1,77 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <SolutionDir Condition="'$(SolutionDir)' == ''">..\</SolutionDir>
+    <OutputPath>$(SolutionDir)\Output\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>PowerShell-Kernel</AssemblyName>
+    <RootNamespace>Jupyter.PowerShell</RootNamespace>
+    <ApplicationIcon />
+    <StartupObject>Jupyter.PowerShell.Kernel</StartupObject>
+
+    <!-- <TargetFrameworks>net462;netcoreapp2.0</TargetFrameworks> -->
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Description>A PowerShell kernel for Jupyter</Description>
+    <PackageId>Jupyter-PowerShell</PackageId>
+    <Authors>Joel "Jaykul" Bennett</Authors>
+    <Company>HuddledMasses.org</Company>
+    <Product>Jupyter PowerShell</Product>
+    <Copyright>Copyright (c) 2017 Joel Bennett</Copyright>
+    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Jaykul/Jupyter-PowerShell</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Jaykul/Jupyter-PowerShell</RepositoryUrl>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <VersionSuffix>$(VersionSuffix)</VersionSuffix>
+    <Version>1.0.0</Version>
+    <Version Condition=" '$(VersionSuffix)' != '' ">$(Version)$(VersionSuffix)</Version>
+    <DefineConstants Condition=" '$(TargetFrameworks)' == 'netcoreapp2.0' ">NETCORE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
+    <RuntimeIdentifiers>linux-x64;osx.10.12-x64;win7-x64</RuntimeIdentifiers>
+    <RuntimeFrameworkVersion>2.0.0</RuntimeFrameworkVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
+  </ItemGroup>
+  <!--
+    Until there's a PowerShell Standard v5 reference package,
+    we need to reference SMA differently for each platform:
+    The 6.0.0 version is in beta on the MyGet feed
+    The 6.1.7601 version is in nuget and it's NOT PowerShell 6.1 at all (*sigh*)
+  -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.1.1" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+    <PackageReference Remove="Microsoft.NETCore.App" />
+    <PackageReference Include="Microsoft.PowerShell.5.ReferenceAssemblies" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jupyter\Jupyter.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="PowerShell-Kernel.Config.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="PowerShell.Config.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Kernel.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
