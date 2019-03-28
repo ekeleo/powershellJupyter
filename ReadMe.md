@@ -6,13 +6,8 @@ You can use Jupyter with PowerShell to produce documentation of your troubleshoo
 
 ## Get it for yourself
 
-The easiest way to try the kernel is using Binder. You can just click here: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/jaykul/Jupyter-PowerShell/master)
+The easiest way to try the kernel is using Binder. You can just click here: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ekeleo/powershellJupyter/master)
 
-The next easiest way is using docker (if you have docker installed). You can start a copy like this:
-
-```posh
-docker run -it --rm -p 8888:8888 jaykul/powershell-notebook-base
-```
 
 You can also install the kernel locally (assuming you have Jupyter or a clone installed) using [chocolatey](http://chocolatey.org/):
 
